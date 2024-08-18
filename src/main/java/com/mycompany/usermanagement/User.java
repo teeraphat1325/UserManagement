@@ -10,7 +10,8 @@ import java.io.Serializable;
  *
  * @author teeraphat
  */
-public class User implements Serializable{
+public class User implements Serializable {
+
     private int id;
     private String login;
     private String name;
@@ -79,6 +80,5 @@ public class User implements Serializable{
     public String toString() {
         return "User{" + "id=" + id + ", login=" + login + ", name=" + name + ", password=" + password + ", gender=" + gender + ", role=" + role + '}';
     }
-    
-    
+
 }

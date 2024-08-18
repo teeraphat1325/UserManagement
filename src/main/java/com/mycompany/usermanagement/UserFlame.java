@@ -34,12 +34,14 @@ public class UserFlame extends javax.swing.JFrame {
         lblName = new javax.swing.JLabel();
         edtName = new javax.swing.JTextField();
         lblName1 = new javax.swing.JLabel();
-        jPasswordField1 = new javax.swing.JPasswordField();
+        edtPassword = new javax.swing.JPasswordField();
         lblName2 = new javax.swing.JLabel();
         rdoMale = new javax.swing.JRadioButton();
         rdoFemale = new javax.swing.JRadioButton();
         lblName3 = new javax.swing.JLabel();
-        cmdRole = new javax.swing.JComboBox<>();
+        cmbRole = new javax.swing.JComboBox<>();
+        btnSave = new javax.swing.JButton();
+        btnClear = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         tblUser = new javax.swing.JTable();
@@ -92,12 +94,21 @@ public class UserFlame extends javax.swing.JFrame {
         lblName3.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblName3.setText("Role :");
 
-        cmdRole.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Admin", "User" }));
-        cmdRole.addActionListener(new java.awt.event.ActionListener() {
+        cmbRole.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Admin", "User" }));
+        cmbRole.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cmdRoleActionPerformed(evt);
+                cmbRoleActionPerformed(evt);
             }
         });
+
+        btnSave.setText("Save");
+        btnSave.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSaveActionPerformed(evt);
+            }
+        });
+
+        btnClear.setText("Clear");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -118,8 +129,8 @@ public class UserFlame extends javax.swing.JFrame {
                             .addComponent(lblName3, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jPasswordField1)
-                            .addComponent(cmdRole, 0, 152, Short.MAX_VALUE))))
+                            .addComponent(edtPassword)
+                            .addComponent(cmbRole, 0, 152, Short.MAX_VALUE))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -131,7 +142,11 @@ public class UserFlame extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(rdoMale)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(rdoFemale)))
+                        .addComponent(rdoFemale))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnClear, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(475, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -146,16 +161,20 @@ public class UserFlame extends javax.swing.JFrame {
                     .addComponent(edtName, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(edtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblName1)
                     .addComponent(lblName2)
                     .addComponent(rdoMale)
                     .addComponent(rdoFemale))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(cmdRole, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cmbRole, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblName3))
-                .addContainerGap(99, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 48, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnClear, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
         );
 
         jPanel2.setBackground(new java.awt.Color(255, 204, 204));
@@ -219,7 +238,7 @@ public class UserFlame extends javax.swing.JFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnDelete, javax.swing.GroupLayout.DEFAULT_SIZE, 37, Short.MAX_VALUE)
+                    .addComponent(btnDelete, javax.swing.GroupLayout.DEFAULT_SIZE, 42, Short.MAX_VALUE)
                     .addComponent(btnEdit, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnAdd2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
@@ -245,8 +264,8 @@ public class UserFlame extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(25, Short.MAX_VALUE))
         );
 
         pack();
@@ -264,9 +283,27 @@ public class UserFlame extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_rdoMaleActionPerformed
 
-    private void cmdRoleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdRoleActionPerformed
+    private void cmbRoleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbRoleActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_cmdRoleActionPerformed
+    }//GEN-LAST:event_cmbRoleActionPerformed
+
+    private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
+        String name = edtName.getText();
+        String login = edtLogin.getText();
+        String password = new String(edtPassword.getPassword());
+        char g = 'F';
+        if (rdoMale.isSelected()) {
+            g ='M';
+        }
+        String role = cmbRole.getSelectedItem().toString();
+        char r = 'U';
+        if(role.equals("Admin")){
+            r = 'A';
+        }
+        System.out.println(name + " " + login + " " + password + " " + role);
+        User user = new User(-1,login,name,password,g,r);
+        System.out.println(user);
+    }//GEN-LAST:event_btnSaveActionPerformed
 
     /**
      * @param args the command line arguments
@@ -305,16 +342,18 @@ public class UserFlame extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdd2;
+    private javax.swing.JButton btnClear;
     private javax.swing.JButton btnDelete;
     private javax.swing.JButton btnEdit;
-    private javax.swing.JComboBox<String> cmdRole;
+    private javax.swing.JButton btnSave;
+    private javax.swing.JComboBox<String> cmbRole;
     private javax.swing.JTextField edtLogin;
     private javax.swing.JTextField edtName;
+    private javax.swing.JPasswordField edtPassword;
     private javax.swing.ButtonGroup grpGender;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JPasswordField jPasswordField1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel lblId;
     private javax.swing.JLabel lblLogin;
