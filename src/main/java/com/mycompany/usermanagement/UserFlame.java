@@ -4,17 +4,84 @@
  */
 package com.mycompany.usermanagement;
 
+import javax.swing.table.AbstractTableModel;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author teeraphat
  */
 public class UserFlame extends javax.swing.JFrame {
 
+    private AbstractTableModel model;
+
     /**
      * Creates new form UserFlame
      */
     public UserFlame() {
         initComponents();
+        load();
+    }
+
+    public void load() {
+        model = new AbstractTableModel() {
+            @Override
+            public String getColumnName(int column) {
+                switch (column) {
+                    case 0:
+                        return "ID";
+                    case 1:
+                        return "LOGIN";
+                    case 2:
+                        return "NAME";
+                    case 3:
+                        return "ROLE";
+                    case 4:
+                        return "GENDER";
+                    default:
+                        return "";
+                }
+            }
+            
+            @Override
+            public int getRowCount() {
+                return UserService.getSize();
+            }
+
+            @Override
+            public int getColumnCount() {
+                return 5;
+            }
+
+            @Override
+            public Object getValueAt(int rowIndex, int columnIndex) {
+                User user = UserService.getUser(rowIndex);
+                switch (columnIndex) {
+                    case 0:
+                        return user.getId();
+                    case 1:
+                        return user.getLogin();
+                    case 2:
+                        return user.getName();
+                    case 3:
+                        if(user.getRole()=='A'){
+                            return "Admin";
+                        }else{
+                            return "User";
+                        }
+                    case 4:
+                        if(user.getGender()=='M'){
+                            return "Male";
+                        }else{
+                            return "Female";
+                        }
+                    default:
+                        return "";
+                }
+            }
+        };
+        tblUser.setModel(model);
+        
     }
 
     /**
@@ -109,6 +176,11 @@ public class UserFlame extends javax.swing.JFrame {
         });
 
         btnClear.setText("Clear");
+        btnClear.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnClearActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -293,17 +365,28 @@ public class UserFlame extends javax.swing.JFrame {
         String password = new String(edtPassword.getPassword());
         char g = 'F';
         if (rdoMale.isSelected()) {
-            g ='M';
+            g = 'M';
         }
         String role = cmbRole.getSelectedItem().toString();
         char r = 'U';
-        if(role.equals("Admin")){
+        if (role.equals("Admin")) {
             r = 'A';
         }
         System.out.println(name + " " + login + " " + password + " " + role);
-        User user = new User(-1,login,name,password,g,r);
+        User user = new User(-1, login, name, password, g, r);
+        UserService.addUser(user);
+        model.fireTableDataChanged();
         System.out.println(user);
     }//GEN-LAST:event_btnSaveActionPerformed
+
+    private void btnClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearActionPerformed
+        edtLogin.setText("");
+        edtName.setText("");
+        edtPassword.setText("");
+        cmbRole.setSelectedIndex(1);
+        rdoMale.setSelected(true);
+        edtLogin.requestFocus();
+    }//GEN-LAST:event_btnClearActionPerformed
 
     /**
      * @param args the command line arguments
