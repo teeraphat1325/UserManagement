@@ -14,6 +14,7 @@ import javax.swing.table.DefaultTableModel;
 public class UserFlame extends javax.swing.JFrame {
 
     private AbstractTableModel model;
+    private int index = -1;
 
     /**
      * Creates new form UserFlame
@@ -81,6 +82,7 @@ public class UserFlame extends javax.swing.JFrame {
             }
         };
         tblUser.setModel(model);
+        enableForm(false);
         
     }
 
@@ -285,12 +287,27 @@ public class UserFlame extends javax.swing.JFrame {
 
         btnAdd2.setBackground(new java.awt.Color(255, 255, 255));
         btnAdd2.setText("Add");
+        btnAdd2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAdd2ActionPerformed(evt);
+            }
+        });
 
         btnEdit.setBackground(new java.awt.Color(255, 255, 255));
         btnEdit.setText("Edit");
+        btnEdit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditActionPerformed(evt);
+            }
+        });
 
         btnDelete.setBackground(new java.awt.Color(255, 255, 255));
         btnDelete.setText("Delete");
+        btnDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeleteActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -372,21 +389,79 @@ public class UserFlame extends javax.swing.JFrame {
         if (role.equals("Admin")) {
             r = 'A';
         }
-        System.out.println(name + " " + login + " " + password + " " + role);
-        User user = new User(-1, login, name, password, g, r);
-        UserService.addUser(user);
+        
+        if(index==-1){
+            User user = new User(-1, login, name, password, g, r);
+            UserService.addUser(user);
+        }else{
+            int id = UserService.getUser(index).getId();
+            User user = new User(id, login, name, password, g, r);
+            UserService.updateUser(index, user);
+        }
+        
         model.fireTableDataChanged();
-        System.out.println(user);
+        clearForm();
+        enableForm(false);
     }//GEN-LAST:event_btnSaveActionPerformed
 
     private void btnClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearActionPerformed
+        clearForm();
+    }//GEN-LAST:event_btnClearActionPerformed
+
+    private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
+        index = tblUser.getSelectedRow();
+        User editedUser = UserService.getUser(index);
+        edtName.setText(editedUser.getName());
+        edtLogin.setText(editedUser.getLogin());
+        edtPassword.setText(editedUser.getPassword());
+        if(editedUser.getGender()=='M'){
+            rdoMale.setSelected(true);
+        }else{
+            rdoFemale.setSelected(true);
+        }
+        if(editedUser.getRole()=='A'){
+            cmbRole.setSelectedIndex(0);
+        }else{
+            cmbRole.setSelectedIndex(1);
+        }
+        lblId.setText("ID: "+editedUser.getId());
+        edtLogin.requestFocus();
+        enableForm(true);
+
+    }//GEN-LAST:event_btnEditActionPerformed
+
+    private void btnAdd2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdd2ActionPerformed
+        index = -1;
+        edtLogin.requestFocus();
+
+        enableForm(true);
+    }//GEN-LAST:event_btnAdd2ActionPerformed
+
+    public void enableForm(boolean status) {
+        edtLogin.setEnabled(status);
+        edtName.setEnabled(status);
+        edtPassword.setEnabled(status);
+        rdoFemale.setEnabled(status);
+        rdoMale.setEnabled(status);
+        cmbRole.setEnabled(status);
+        btnSave.setEnabled(status);
+        btnClear.setEnabled(status);
+    }
+
+    private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
+        index = tblUser.getSelectedRow();
+        UserService.deleteUser(index);
+        model.fireTableDataChanged();
+    }//GEN-LAST:event_btnDeleteActionPerformed
+
+    private void clearForm() {
         edtLogin.setText("");
         edtName.setText("");
         edtPassword.setText("");
         cmbRole.setSelectedIndex(1);
         rdoMale.setSelected(true);
         edtLogin.requestFocus();
-    }//GEN-LAST:event_btnClearActionPerformed
+    }
 
     /**
      * @param args the command line arguments
