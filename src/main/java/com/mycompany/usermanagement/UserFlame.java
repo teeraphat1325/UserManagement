@@ -25,6 +25,7 @@ public class UserFlame extends javax.swing.JFrame {
     }
 
     public void load() {
+        UserService.readFile();
         model = new AbstractTableModel() {
             @Override
             public String getColumnName(int column) {
@@ -43,7 +44,7 @@ public class UserFlame extends javax.swing.JFrame {
                         return "";
                 }
             }
-            
+
             @Override
             public int getRowCount() {
                 return UserService.getSize();
@@ -65,15 +66,15 @@ public class UserFlame extends javax.swing.JFrame {
                     case 2:
                         return user.getName();
                     case 3:
-                        if(user.getRole()=='A'){
+                        if (user.getRole() == 'A') {
                             return "Admin";
-                        }else{
+                        } else {
                             return "User";
                         }
                     case 4:
-                        if(user.getGender()=='M'){
+                        if (user.getGender() == 'M') {
                             return "Male";
-                        }else{
+                        } else {
                             return "Female";
                         }
                     default:
@@ -83,7 +84,7 @@ public class UserFlame extends javax.swing.JFrame {
         };
         tblUser.setModel(model);
         enableForm(false);
-        
+
     }
 
     /**
@@ -389,19 +390,20 @@ public class UserFlame extends javax.swing.JFrame {
         if (role.equals("Admin")) {
             r = 'A';
         }
-        
-        if(index==-1){
+
+        if (index == -1) {
             User user = new User(-1, login, name, password, g, r);
             UserService.addUser(user);
-        }else{
+        } else {
             int id = UserService.getUser(index).getId();
             User user = new User(id, login, name, password, g, r);
             UserService.updateUser(index, user);
         }
-        
+
         model.fireTableDataChanged();
         clearForm();
         enableForm(false);
+        UserService.writeFile();
     }//GEN-LAST:event_btnSaveActionPerformed
 
     private void btnClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearActionPerformed
@@ -421,17 +423,17 @@ public class UserFlame extends javax.swing.JFrame {
         edtName.setText(editedUser.getName());
         edtLogin.setText(editedUser.getLogin());
         edtPassword.setText(editedUser.getPassword());
-        if(editedUser.getGender()=='M'){
+        if (editedUser.getGender() == 'M') {
             rdoMale.setSelected(true);
-        }else{
+        } else {
             rdoFemale.setSelected(true);
         }
-        if(editedUser.getRole()=='A'){
+        if (editedUser.getRole() == 'A') {
             cmbRole.setSelectedIndex(0);
-        }else{
+        } else {
             cmbRole.setSelectedIndex(1);
         }
-        lblId.setText("ID: "+editedUser.getId());
+        lblId.setText("ID: " + editedUser.getId());
     }
 
     private void btnAdd2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdd2ActionPerformed
@@ -459,17 +461,18 @@ public class UserFlame extends javax.swing.JFrame {
     }//GEN-LAST:event_btnDeleteActionPerformed
 
     private void clearForm() {
-        if(index==-1){
+        if (index == -1) {
             edtLogin.setText("");
             edtName.setText("");
             edtPassword.setText("");
             cmbRole.setSelectedIndex(1);
             rdoMale.setSelected(true);
             edtLogin.requestFocus();
-        }else{
+        } else {
             fillform();
+            edtLogin.requestFocus();
         }
-        
+
     }
 
     /**
