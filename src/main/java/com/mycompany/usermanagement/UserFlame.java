@@ -410,6 +410,13 @@ public class UserFlame extends javax.swing.JFrame {
 
     private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
         index = tblUser.getSelectedRow();
+        fillform();
+        edtLogin.requestFocus();
+        enableForm(true);
+
+    }//GEN-LAST:event_btnEditActionPerformed
+
+    public void fillform() {
         User editedUser = UserService.getUser(index);
         edtName.setText(editedUser.getName());
         edtLogin.setText(editedUser.getLogin());
@@ -425,10 +432,7 @@ public class UserFlame extends javax.swing.JFrame {
             cmbRole.setSelectedIndex(1);
         }
         lblId.setText("ID: "+editedUser.getId());
-        edtLogin.requestFocus();
-        enableForm(true);
-
-    }//GEN-LAST:event_btnEditActionPerformed
+    }
 
     private void btnAdd2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdd2ActionPerformed
         index = -1;
@@ -455,12 +459,17 @@ public class UserFlame extends javax.swing.JFrame {
     }//GEN-LAST:event_btnDeleteActionPerformed
 
     private void clearForm() {
-        edtLogin.setText("");
-        edtName.setText("");
-        edtPassword.setText("");
-        cmbRole.setSelectedIndex(1);
-        rdoMale.setSelected(true);
-        edtLogin.requestFocus();
+        if(index==-1){
+            edtLogin.setText("");
+            edtName.setText("");
+            edtPassword.setText("");
+            cmbRole.setSelectedIndex(1);
+            rdoMale.setSelected(true);
+            edtLogin.requestFocus();
+        }else{
+            fillform();
+        }
+        
     }
 
     /**
